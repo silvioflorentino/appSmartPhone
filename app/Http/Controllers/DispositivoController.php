@@ -27,4 +27,49 @@ class DispositivoController extends Controller
         return Redirect::route('home');
         
     }
+
+    public function MostrarGerenciadorDispositivo(Request $request){
+
+        // $dados = Dispositivo::all();
+         //dd($dados);
+         $dadosDispositivo = Dispositivo::query();
+         $dadosDispositivo->when($request->marca,function($query, $vl){
+             $query->where('marca','like','%'.$vl.'%');
+         });
+ 
+         $dadosDispositivo = $dadosDispositivo->get();
+ 
+ 
+         return view('gerenciarCelular',[
+             'registrosDispositivo' => $dadosDispositivo
+         ]);
+         
+     }
+
+     public function ApagarBancoDispositivo(Dispositivo $registrosDispositivos){
+        //dd($registrosDispositivos);
+        $registrosDispositivo->delete();
+        //Dispositivo::findOrFail($id)->delete();
+        return Redirect::route('gerenciar-dispositivo');
+    }
+
+    public function GerenciarDispositivo(Dispositivo $registrosDispositivos){
+        return view('alterarCelular',['registrosDispositivos' => $registrosDispositivos]);
+    }
+    public function AlterarBancoDispositivo(Dispositivo $registrosDispositivo, Request $request){
+        $dispositivo = $request->validate([
+            'celular' => 'string|required',
+            'marca' => 'string|required',
+            'descricao' => 'string|required'
+        ]);
+
+        $registrosdispositivo->fill($dispositivo);
+        $registrosdispositivo->save();
+
+        return Redirect::route('gerenciar-dispositivo');
+
+
+    }
+
+
 }

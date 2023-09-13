@@ -27,9 +27,9 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{{'/cadastrar'}}">Cadastrar</a></li>
-                  <li><a class="dropdown-item" href="#">Buscar por marca</a></li>
+                  <li><a class="dropdown-item" href="{{'/'}}">Buscar por marca</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Painel Manipula</a></li>
+                  <li><a class="dropdown-item" href="{{'/gerenciar-dispositivo'}}">Painel Manipula</a></li>
                 </ul>
               </li>
             
