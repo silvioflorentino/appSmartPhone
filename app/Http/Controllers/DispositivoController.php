@@ -13,62 +13,54 @@ class DispositivoController extends Controller
     }
 
     public function formCadastrar(){
-        return view('cadastrar');
+        return view('cadastrarCelular');
     }
 
     public function salvarDispositivo(Request $request){
-        $dispositivo = $request->validate([
+        $Dispositivo = $request->validate([
             'celular' => 'string|required',
             'marca' => 'string|required',
             'descricao' => 'string|required'
         ]);
 
-        Dispositivo::create($dispositivo);
+        Dispositivo::create($Dispositivo);
         return Redirect::route('home');
         
     }
 
-    public function MostrarGerenciadorDispositivo(Request $request){
 
+//aula 14/09/2023
+    public function MostrarGerenciadorDispositivo(Request $request){
         // $dados = Dispositivo::all();
          //dd($dados);
          $dadosDispositivo = Dispositivo::query();
          $dadosDispositivo->when($request->marca,function($query, $vl){
              $query->where('marca','like','%'.$vl.'%');
          });
- 
-         $dadosDispositivo = $dadosDispositivo->get();
- 
- 
-         return view('gerenciarCelular',[
+          $dadosDispositivo = $dadosDispositivo->get();
+          return view('gerenciarCelular',[
              'registrosDispositivo' => $dadosDispositivo
-         ]);
-         
+         ]);       
      }
 
-     public function ApagarBancoDispositivo(Dispositivo $registrosDispositivos){
+     public function ApagarBancoDispositivo(Dispositivo $id){
         //dd($registrosDispositivos);
-        $registrosDispositivo->delete();
+        $id->delete();
         //Dispositivo::findOrFail($id)->delete();
         return Redirect::route('gerenciar-dispositivo');
     }
-
-    public function GerenciarDispositivo(Dispositivo $registrosDispositivos){
-        return view('alterarCelular',['registrosDispositivos' => $registrosDispositivos]);
+    public function GerenciarDispositivoTela(Dispositivo $id){
+        return view('alterarCelular',['registrosDispositivos' => $id]);
     }
-    public function AlterarBancoDispositivo(Dispositivo $registrosDispositivo, Request $request){
-        $dispositivo = $request->validate([
+    public function AlterarBancoDispositivo(Dispositivo $id, Request $request){
+        $Dispositivo = $request->validate([
             'celular' => 'string|required',
             'marca' => 'string|required',
             'descricao' => 'string|required'
         ]);
-
-        $registrosdispositivo->fill($dispositivo);
-        $registrosdispositivo->save();
-
+        $id->fill($Dispositivo);
+        $id->save();
         return Redirect::route('gerenciar-dispositivo');
-
-
     }
 
 
