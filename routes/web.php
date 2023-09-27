@@ -12,6 +12,7 @@ Route::get('/gerenciar-dispositivo',[DispositivoController::class, 'MostrarGeren
 Route::delete('/apagar-dispositivo/{id}',[DispositivoController::class, 'ApagarBancoDispositivo'])->name('apagar-dispositivo');
 
 Route::get('/tela-alterar-dispositivo/{id}',[DispositivoController::class, 'GerenciarDispositivoTela'])->name('tela-alterar-dispositivo');
+
 Route::put('/alterar-dispositivo/{id}',[DispositivoController::class, 'AlterarBancoDispositivo'])->name('alterar-dispositivo');
 
 
